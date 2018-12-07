@@ -18,9 +18,18 @@ public class FalseBreakOutInterpreter {
     //first option - should check for last three candles breakout
         List<Candle> candleList = candleData.getCandles();
         List<Candle> resistanceCandleList = resistances.getResistanceCandlesList();
+        List<Candle> supportCandlesList = supports.getSupportCandlesList();
         for(Candle candle: resistanceCandleList){
-            if (candleList.get(candleList.size()-1).getHigh()>candle.getHigh()){
-                System.out.println("Resistance BreakOut !! at " + candle.getDate());
+            if (candleList.get(0).getHigh()>candle.getHigh()){
+                System.out.println("-------------------------------------Resistance BreakOut " +candle.getSymbol()+" !! at " + candle.getDate());
+            }
+        }
+        for(Candle candle: supportCandlesList){
+           /* //System.out.println(supportCandlesList);
+            System.out.println("candle low "+candle.getLow());
+            System.out.println("candleList low "+ (candleList.get(0).getLow()));*/
+            if (candleList.get(0).getLow()<candle.getLow()){
+                System.out.println("-------------------------------------Support BreakOut " +candle.getSymbol()+" !! at " + candle.getDate());
             }
         }
 

@@ -1,6 +1,5 @@
 package org.mt4expert.javaexpert;
 
-
 import java.util.stream.Collectors;
 
 public class ScanBreakoutTask {
@@ -14,11 +13,6 @@ public class ScanBreakoutTask {
     }
 
     public void run() {
-     /*   try {
-            Thread.sleep(delayExecution);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         CandleDataImporter candleDataImporter = new CandleDataImporter(fullPathFilename);
         CandleData candleData = new CandleData(candleDataImporter.importCandles());
         VortexFinder vortexFinder = new VortexFinder(candleData);
@@ -27,13 +21,13 @@ public class ScanBreakoutTask {
         System.out.println("Supports for " + fullPathFilename);
         supportResistanceFinder.getSupports().getSupportCandlesList().stream()
                 .collect(Collectors.toSet()).stream()
-                .collect(Collectors.toMap(Candle::getClose, Candle::getDate))
+                .collect(Collectors.toMap(Candle::getDate, Candle::getClose))
                 .entrySet().forEach(System.out::println);
 
         System.out.println("Resistances for " + fullPathFilename);
         supportResistanceFinder.getResistances().getResistanceCandlesList().stream()
                 .collect(Collectors.toSet()).stream()
-                .collect(Collectors.toMap(Candle::getClose, Candle::getDate))
+                .collect(Collectors.toMap(Candle::getDate,Candle::getClose))
                 .entrySet().forEach(System.out::println);
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(candleData, supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());

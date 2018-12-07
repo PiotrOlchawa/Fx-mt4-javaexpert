@@ -1,7 +1,5 @@
 package org.mt4expert.javaexpert;
 
-
-
 import java.util.List;
 
 public class CandleDataImporter {

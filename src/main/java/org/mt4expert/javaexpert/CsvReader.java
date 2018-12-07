@@ -47,6 +47,7 @@ public class CsvReader {
                     e.printStackTrace();
                     System.exit(0);
                 }
+                candle.setSymbol(oneCandle[5]);
                 candleList.add(candle);
 
             }

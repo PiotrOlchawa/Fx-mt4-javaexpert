@@ -10,6 +10,7 @@ public class Candle {
     private Double close;
     private Date date;
     private Integer index = null;
+    private String symbol;
 
     public Candle(Double open, Double high, Double low, Double close) {
         this.high = high;
@@ -20,6 +21,14 @@ public class Candle {
 
     public Candle() {
 
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public Date getDate() {

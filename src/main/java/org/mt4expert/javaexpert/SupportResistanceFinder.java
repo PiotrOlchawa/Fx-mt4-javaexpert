@@ -14,29 +14,36 @@ public class SupportResistanceFinder {
     public SupportResistanceFinder(Map<Candle, String> candleVortexMap) {
         this.candleVortexMap = candleVortexMap;
     }
-
     public Support getSupports() {
         return supports;
     }
-
     public Resistance getResistances() {
         return resistances;
     }
-
 
     public void findSupportsAndResistances() {
         findSupports();
         findResistances();
     }
 
-    @SuppressWarnings("Duplicates")
     private void findSupports() {
-
         List<Candle> possibleSupportVortexesList = candleVortexMap.entrySet().stream()
                 .filter(l -> l.getValue().equals(VortexFinder.VORTEX_LOW))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+        addSupportCandle(possibleSupportVortexesList);
+    }
 
+
+    private void findResistances() {
+        List<Candle> possibleSupportVortexesList = candleVortexMap.entrySet().stream()
+                .filter(l -> l.getValue().equals(VortexFinder.VORTEX_HIGH))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        addResistanceCandle(possibleSupportVortexesList);
+    }
+
+    private void addSupportCandle(List<Candle> possibleSupportVortexesList) {
         for (Candle candle : possibleSupportVortexesList) {
             for (Candle checkedCandle : possibleSupportVortexesList) {
 
@@ -60,24 +67,21 @@ public class SupportResistanceFinder {
         }
     }
 
-    @SuppressWarnings("Duplicates")
-    private void findResistances() {
 
-        List<Candle> possibleSupportVortexesList = candleVortexMap.entrySet().stream()
-                .filter(l -> l.getValue().equals(VortexFinder.VORTEX_HIGH))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-
+    private void addResistanceCandle(List<Candle> possibleSupportVortexesList) {
         for (Candle candle : possibleSupportVortexesList) {
             for (Candle checkedCandle : possibleSupportVortexesList) {
 
                 if (candle != checkedCandle) {
                     //check if down candle
                     if (candle.getClose() - candle.getOpen() < 0) {
-                        //check if high of any candle is within range of high and close of candle
+                        //check if high of any candle is within range of high and open of candle
                         if (checkedCandle.getHigh() <= candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()) {
                             resistances.getResistanceCandlesList().add(candle);
                         }
+
+
+                        //check if high is above the candle but close is below (if
                     }
                     //check if up candle
                     if (candle.getClose() - candle.getOpen() > 0) {
@@ -90,6 +94,4 @@ public class SupportResistanceFinder {
             }
         }
     }
-
-
 }

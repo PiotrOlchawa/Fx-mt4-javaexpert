@@ -1,5 +1,8 @@
 package org.mt4expert.javaexpert;
 
+import org.mt4expert.javaexpert.data.Candle;
+import org.mt4expert.javaexpert.data.CandleData;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

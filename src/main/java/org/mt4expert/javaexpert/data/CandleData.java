@@ -1,7 +1,5 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.data;
 
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class CandleData {

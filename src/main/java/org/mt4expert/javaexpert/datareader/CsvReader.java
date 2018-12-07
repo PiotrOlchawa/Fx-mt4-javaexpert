@@ -1,5 +1,7 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.datareader;
 
+
+import org.mt4expert.javaexpert.data.Candle;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -8,11 +10,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class CsvReader {
 
@@ -43,9 +42,7 @@ public class CsvReader {
                 try {
                     candle.setDate(format.parse(oneCandle[4]));
                 } catch (ParseException e) {
-                    System.out.println("Błąd parsowania daty");
-                    e.printStackTrace();
-                    System.exit(0);
+                    System.out.println("---------------------------Błąd danych wejsciowych - błąd parsowania daty---------------------------B");
                 }
                 candle.setSymbol(oneCandle[5]);
                 candleList.add(candle);

@@ -1,4 +1,7 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.datareader;
+
+import org.mt4expert.javaexpert.data.Candle;
+import org.mt4expert.javaexpert.datareader.CsvReader;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ public class CandleDataImporter {
         this.fullPathFilename = fullPathFilename;
     }
 
-    List<Candle> importCandles() {
+    public List<Candle> importCandles() {
         csvReader = new CsvReader(fullPathFilename);
         List<Candle> candleList = csvReader.read();
         return candleList;

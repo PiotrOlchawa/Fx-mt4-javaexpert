@@ -1,8 +1,9 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.data;
 
 import java.util.Date;
 
 public class Candle {
+
 
     private Double open;
     private Double high;
@@ -32,6 +33,7 @@ public class Candle {
     }
 
     public Date getDate() {
+
         return date;
     }
 

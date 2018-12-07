@@ -1,6 +1,5 @@
 package org.mt4expert.javaexpert;
 
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.log4j.BasicConfigurator;
+import org.mt4expert.javaexpert.config.ExpertConfigurator;
 
 public class Runner {
 
@@ -22,7 +22,7 @@ public class Runner {
         processFiles(oldfilesMap);
         while (true) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(ExpertConfigurator.getThreadSleep());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -39,9 +39,9 @@ public class Runner {
 
     private static void processFiles(List<String> filesMap) {
         for (String fileName : filesMap) {
-            System.out.println("-----Next pair-----");
-            ScanBreakoutTask scanBreakoutTask = new ScanBreakoutTask(ABSOLUTE_PATH + fileName, 10000);
-            scanBreakoutTask.run();
+            System.out.println("-----------------------------------NEXT PAIR-----------------------------------");
+            SRReporter SRReporter = new SRReporter(ABSOLUTE_PATH + fileName, 10000);
+            SRReporter.run();
         }
     }
 

@@ -1,6 +1,10 @@
 package org.mt4expert.javaexpert;
 
 
+import org.mt4expert.javaexpert.data.Candle;
+import org.mt4expert.javaexpert.data.Resistance;
+import org.mt4expert.javaexpert.data.Support;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

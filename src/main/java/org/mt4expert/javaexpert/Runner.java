@@ -3,13 +3,12 @@ package org.mt4expert.javaexpert;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.log4j.BasicConfigurator;
 
 public class Runner {
 
@@ -17,26 +16,30 @@ public class Runner {
     private static Map<String, Long> filesMap = Arrays.stream(new File(ABSOLUTE_PATH).listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
 
     public static void main(String[] args) {
+        BasicConfigurator.configure();
         List<String> oldfilesMap = filesMap.entrySet().stream()
                 .map(l -> l.getKey()).collect(Collectors.toList());
         processFiles(oldfilesMap);
         while (true) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             Map<String, Long> actualFilesMap = Arrays.stream(new File(ABSOLUTE_PATH).listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
             List<String> fileNamesDifferentialList = compareMap(actualFilesMap);
-            System.out.println(fileNamesDifferentialList);
-            //System.out.println("processing.. old and actual and differential "+ filesMap + " " + actualFilesMap + " " + fileNamesDifferentialList);
+            if (fileNamesDifferentialList.size()==0) {
+                System.out.println("No new files or changes, waiting..");
+            } else {
+                System.out.println("New files to process " + fileNamesDifferentialList);
+            }
             processFiles(fileNamesDifferentialList);
         }
     }
 
     private static void processFiles(List<String> filesMap) {
         for (String fileName : filesMap) {
-            System.out.println("loop");
+            System.out.println("-----Next pair-----");
             ScanBreakoutTask scanBreakoutTask = new ScanBreakoutTask(ABSOLUTE_PATH + fileName, 10000);
             scanBreakoutTask.run();
         }

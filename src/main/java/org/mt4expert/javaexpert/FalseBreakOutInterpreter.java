@@ -1,12 +1,17 @@
 package org.mt4expert.javaexpert;
 
+import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 public class FalseBreakOutInterpreter {
 
+    private static final Logger LOG = org.apache.log4j.Logger.getLogger(FalseBreakOutInterpreter.class);
     CandleData candleData;
     Support supports;
     Resistance resistances;
+
 
     public FalseBreakOutInterpreter(CandleData candleData, Support supports, Resistance resistances) {
         this.candleData = candleData;
@@ -21,6 +26,7 @@ public class FalseBreakOutInterpreter {
         List<Candle> supportCandlesList = supports.getSupportCandlesList();
         for(Candle candle: resistanceCandleList){
             if (candleList.get(0).getHigh()>candle.getHigh()){
+
                 System.out.println("-------------------------------------Resistance BreakOut " +candle.getSymbol()+" !! at " + candle.getDate());
             }
         }

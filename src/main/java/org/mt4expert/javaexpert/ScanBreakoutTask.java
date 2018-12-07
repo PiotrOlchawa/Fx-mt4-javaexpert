@@ -16,6 +16,9 @@ public class ScanBreakoutTask {
         CandleDataImporter candleDataImporter = new CandleDataImporter(fullPathFilename);
         CandleData candleData = new CandleData(candleDataImporter.importCandles());
         VortexFinder vortexFinder = new VortexFinder(candleData);
+/*        vortexFinder.findVortexes().entrySet().stream()
+                .filter(l->l.getValue().equals("VORTEX_HIGH"))
+                .limit(10).forEach(System.out::println);*/
         SupportResistanceFinder supportResistanceFinder = new SupportResistanceFinder(vortexFinder.findVortexes());
         supportResistanceFinder.findSupportsAndResistances();
         System.out.println("Supports for " + fullPathFilename);

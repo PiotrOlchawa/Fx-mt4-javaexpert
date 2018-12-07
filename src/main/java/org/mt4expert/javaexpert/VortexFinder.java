@@ -1,10 +1,8 @@
 package org.mt4expert.javaexpert;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class VortexFinder {
 
@@ -21,40 +19,40 @@ public class VortexFinder {
         List<Candle> candleList = candleData.getCandles();
         Map<Candle, String> vortexCandleMap = new HashMap<>();
 
-            for (int i = 2; i < ((candleList.size() > CANDLE_LIST_SIZE_LIMIT) ? CANDLE_LIST_SIZE_LIMIT : candleList.size()) - 2; i++) {
+        for (int i = 2; i < ((candleList.size() > CANDLE_LIST_SIZE_LIMIT) ? CANDLE_LIST_SIZE_LIMIT : candleList.size()) - 2; i++) {
 
-                List<Candle> subCandles = candleList.subList(i - 2, i + 3);
+            List<Candle> subCandles = candleList.subList(i - 2, i + 3);
 
-                //System.out.println("Ilosc swieczek " + candleList.size() + " index " + i);
-
-                if (checkForHigh(subCandles)) {
-                    Candle candle = candleList.get(i);
-                    boolean trueVortex = true;
-                    for (int j = i - 1; j >= 0; j--) {
-                        if (candleList.get(j).getClose() > candle.getHigh()) trueVortex = false;
-                        if (candleList.get(j).getClose() > candle.getClose()
-                                && candleList.get(j).getHigh() > candle.getHigh()) trueVortex = false;
-                    }
-                    if (trueVortex) {
-                        candleList.get(i).setIndex(i);
-                        vortexCandleMap.put(candleList.get(i), VORTEX_HIGH);
-                    }
+            if (checkForHigh(subCandles)) {
+                Candle candle = candleList.get(i);
+                boolean trueVortex = true;
+                for (int j = i - 1; j >= 0; j--) {
+                    // jesli swieca zamyka sie wyzej high candle - high jest odrzucane
+                    if (candleList.get(j).getClose() > candle.getHigh()) trueVortex = false;
+                    // jesli zamkniecie jest wyzej zamkniecia candle oraz high jest wyzsze niz niz high candle - high jest odrzucane
+                    if (candleList.get(j).getClose() > candle.getClose()
+                            && candleList.get(j).getHigh() > candle.getHigh()) trueVortex = false;
                 }
-
-                if (checkForLow(subCandles)) {
-                    Candle candle = candleList.get(i);
-                    boolean trueVortex = true;
-                    for (int j = i - 1; j >= 0; j--) {
-                        if (candleList.get(j).getClose() < candle.getLow()) trueVortex = false;
-                        if (candleList.get(j).getClose() < candle.getClose()
-                                && candleList.get(j).getLow() > candle.getLow()) trueVortex = false;
-                    }
-                    if (trueVortex) {
-                        candleList.get(i).setIndex(i);
-                        vortexCandleMap.put(candleList.get(i), VORTEX_LOW);
-                    }
+                if (trueVortex) {
+                    candleList.get(i).setIndex(i);
+                    vortexCandleMap.put(candleList.get(i), VORTEX_HIGH);
                 }
             }
+
+            if (checkForLow(subCandles)) {
+                Candle candle = candleList.get(i);
+                boolean trueVortex = true;
+                for (int j = i - 1; j >= 0; j--) {
+                    if (candleList.get(j).getClose() < candle.getLow()) trueVortex = false;
+                    if (candleList.get(j).getClose() < candle.getClose()
+                            && candleList.get(j).getLow() > candle.getLow()) trueVortex = false;
+                }
+                if (trueVortex) {
+                    candleList.get(i).setIndex(i);
+                    vortexCandleMap.put(candleList.get(i), VORTEX_LOW);
+                }
+            }
+        }
         return vortexCandleMap;
     }
 

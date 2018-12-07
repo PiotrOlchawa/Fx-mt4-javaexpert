@@ -24,7 +24,7 @@ public class SupportResistanceFinder {
     }
 
 
-    public void findSupportsAndResistances(){
+    public void findSupportsAndResistances() {
         findSupports();
         findResistances();
     }
@@ -71,12 +71,10 @@ public class SupportResistanceFinder {
         for (Candle candle : possibleSupportVortexesList) {
             for (Candle checkedCandle : possibleSupportVortexesList) {
 
-                //System.out.println(checkedCandle.toString() + candle.toString());
                 if (candle != checkedCandle) {
-
                     //check if down candle
                     if (candle.getClose() - candle.getOpen() < 0) {
-                        //check if high of any candle is within range of low and open candle
+                        //check if high of any candle is within range of high and close of candle
                         if (checkedCandle.getHigh() <= candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()) {
                             resistances.getResistanceCandlesList().add(candle);
                         }
@@ -84,7 +82,6 @@ public class SupportResistanceFinder {
                     //check if up candle
                     if (candle.getClose() - candle.getOpen() > 0) {
                         //check if low and of any checkedCandle is within range of low and close candle
-                        //System.out.println(checkedCandle.toString() + candle.toString());
                         if (checkedCandle.getHigh() <= candle.getHigh() && checkedCandle.getHigh() >= candle.getClose()) {
                             resistances.getResistanceCandlesList().add(candle);
                         }

@@ -1,5 +1,6 @@
 package org.mt4expert.javaexpert;
 
+import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 import org.mt4expert.javaexpert.data.CandleData;
 import org.mt4expert.javaexpert.datareader.CandleDataImporter;
@@ -11,25 +12,22 @@ import java.util.stream.Collectors;
 public class SRReporter {
 
     private String fullPathFilename;
-    private Integer delayExecution;
 
-    public SRReporter(String fullPathFilename, Integer delayExecution) {
+    public SRReporter(String fullPathFilename) {
         this.fullPathFilename = fullPathFilename;
-        this.delayExecution = delayExecution;
     }
 
-    public void run() {
+    public void report() {
         CandleDataImporter candleDataImporter = new CandleDataImporter(fullPathFilename);
         CandleData candleData = new CandleData(candleDataImporter.importCandles());
         VortexFinder vortexFinder = new VortexFinder(candleData);
         SupportResistanceFinder supportResistanceFinder = new SupportResistanceFinder(vortexFinder.findVortexes());
         supportResistanceFinder.findSupportsAndResistances();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy HH:mm:ss");
-
+        SimpleDateFormat sdf = new SimpleDateFormat(ExpertConfigurator.DATE_FORMAT);
         List<Candle> supportCandleList = supportResistanceFinder.getSupports().getSupportCandlesList();
         int supportCandles = supportCandleList.size();
         if (supportCandles > 0) {
-            System.out.println("Supports for " + supportCandleList.get(0).getSymbol());
+            System.out.println(ExpertConfigurator.SUPPORT + supportCandleList.get(0).getSymbol());
             supportResistanceFinder.getSupports().getSupportCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
                     .collect(Collectors.toMap(Candle::getDate, Candle::getClose))
@@ -39,16 +37,15 @@ public class SRReporter {
         List<Candle> resistanceCandleList = supportResistanceFinder.getResistances().getResistanceCandlesList();
         int resistanceCandles = resistanceCandleList.size();
         if (resistanceCandles > 0) {
-            System.out.println("Resistances for " + resistanceCandleList.get(0).getSymbol());
+            System.out.println(ExpertConfigurator.RESISTANCE + resistanceCandleList.get(0).getSymbol());
 
             supportResistanceFinder.getResistances().getResistanceCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
                     .collect(Collectors.toMap(Candle::getDate, Candle::getClose))
                     .entrySet().forEach(l -> System.out.println(" | " + sdf.format(l.getKey()) + " | " + l.getValue()));
         }
-        System.out.println((supportCandles-resistanceCandles>0 ? "------------UPTREND------------"
-                : "------------DOWNTREND------------"));
-
+        System.out.println((supportCandles - resistanceCandles > 0 ? ExpertConfigurator.UPTREND
+                : ExpertConfigurator.DOWNTREND));
 
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());

@@ -1,6 +1,7 @@
 package org.mt4expert.javaexpert;
 
 
+import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 import org.mt4expert.javaexpert.data.Resistance;
 import org.mt4expert.javaexpert.data.Support;
@@ -34,7 +35,7 @@ public class SupportResistanceFinder {
 
     private void findResistances() {
         List<Candle> possibleSupportVortexesList = candleVortexMap.entrySet().stream()
-                .filter(l -> l.getValue().equals(VortexFinder.VORTEX_HIGH))
+                .filter(l -> l.getValue().equals(ExpertConfigurator.VORTEX_HIGH))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
         addResistanceCandle(possibleSupportVortexesList);
@@ -77,7 +78,7 @@ public class SupportResistanceFinder {
 
     private void findSupports() {
         List<Candle> possibleSupportVortexesList = candleVortexMap.entrySet().stream()
-                .filter(l -> l.getValue().equals(VortexFinder.VORTEX_LOW))
+                .filter(l -> l.getValue().equals(ExpertConfigurator.VORTEX_LOW))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
         addSupportCandle(possibleSupportVortexesList);

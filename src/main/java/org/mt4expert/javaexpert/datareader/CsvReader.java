@@ -1,6 +1,7 @@
 package org.mt4expert.javaexpert.datareader;
 
 
+import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 
 import java.io.BufferedReader;
@@ -26,7 +27,7 @@ public class CsvReader {
 
     public List<Candle> read() {
         List<Candle> candleList = new LinkedList<>();
-        DateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        DateFormat format = new SimpleDateFormat(ExpertConfigurator.MT4_DATE_FORMAT);
 
         try {
             br = new BufferedReader(new FileReader(csvFullPathFile));
@@ -42,7 +43,7 @@ public class CsvReader {
                 try {
                     candle.setDate(format.parse(oneCandle[4]));
                 } catch (ParseException e) {
-                    System.out.println("---------------------------Błąd danych wejsciowych - błąd parsowania daty---------------------------B");
+                    System.out.println(ExpertConfigurator.INPUT_PARSE_ERROR);
                 }
                 candle.setSymbol(oneCandle[5]);
                 candleList.add(candle);
@@ -64,5 +65,4 @@ public class CsvReader {
         }
         return candleList;
     }
-
 }

@@ -43,4 +43,12 @@ public class Commander {
     public static void inputParseError() {
         System.out.println(ExpertConfigurator.INPUT_PARSE_ERROR);
     }
+
+    public static String showResistanceBreakOut() {
+        return ExpertConfigurator.RESISTANCE_BREAKOUT;
+    }
+
+    public static String showSupportBreakOut() {
+        return ExpertConfigurator.SUPPORT_BREAKOUT;
+    }
 }

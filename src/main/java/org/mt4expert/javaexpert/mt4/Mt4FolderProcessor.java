@@ -1,7 +1,7 @@
 package org.mt4expert.javaexpert.mt4;
 
 import org.mt4expert.javaexpert.Commander;
-import org.mt4expert.javaexpert.SRReporter;
+import org.mt4expert.javaexpert.reporter.SRReporter;
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 
 import java.io.File;
@@ -15,8 +15,8 @@ public class Mt4FolderProcessor {
     public void processFolder() {
         Mt4FilesComparator mt4FilesComparator = new Mt4FilesComparator();
         List<String> oldfilesMap = ExpertConfigurator.FILES_MAP.entrySet().stream()
-                .map(l -> l.getKey()).collect(Collectors.toList());
-        processFiles(oldfilesMap);
+                .map(Map.Entry::getKey).collect(Collectors.toList());
+        processFilesInFolder(oldfilesMap);
         while (true) {
             try {
                 Thread.sleep(ExpertConfigurator.THREAD_SLEEP);
@@ -30,18 +30,15 @@ public class Mt4FolderProcessor {
             } else {
                 Commander.showChanges(fileNamesDifferentialList);
             }
-            processFiles(fileNamesDifferentialList);
+            processFilesInFolder(fileNamesDifferentialList);
         }
     }
 
-    private static void processFiles(List<String> filesMap) {
+    private static void processFilesInFolder(List<String> filesMap) {
         for (String fileName : filesMap) {
             Commander.nextPair();
             SRReporter SRReporter = new SRReporter(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH + fileName);
             SRReporter.report();
         }
     }
-
-
-
 }

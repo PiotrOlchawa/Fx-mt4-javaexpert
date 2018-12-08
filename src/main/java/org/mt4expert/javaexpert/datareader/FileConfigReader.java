@@ -24,7 +24,9 @@ public class FileConfigReader {
             br = new BufferedReader(new FileReader(ExpertConfigurator.CONFIG_FILENAME));
             while ((line = br.readLine()) != null) {
                 String[] configParam = line.split(configParametersSplitBy);
-                configParameters.put(configParam[0], configParam[1]);
+                if(configParam.length==2) {
+                    configParameters.put(configParam[0], configParam[1]);
+                }
             }
 
         } catch (FileNotFoundException e) {

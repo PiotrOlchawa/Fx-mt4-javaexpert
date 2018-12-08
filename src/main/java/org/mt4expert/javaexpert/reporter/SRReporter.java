@@ -1,13 +1,22 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.reporter;
 
+import org.mt4expert.javaexpert.Commander;
+import org.mt4expert.javaexpert.interpreter.FalseBreakOutInterpreter;
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 import org.mt4expert.javaexpert.data.CandleData;
 import org.mt4expert.javaexpert.datareader.CandleDataImporter;
+import org.mt4expert.javaexpert.finder.SupportResistanceFinder;
+import org.mt4expert.javaexpert.finder.VortexFinder;
+import org.mt4expert.javaexpert.interpreter.FalseBreakoutCandle;
+import org.mt4expert.javaexpert.sender.SimpleMailSender;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 public class SRReporter {
 
@@ -18,6 +27,7 @@ public class SRReporter {
     }
 
     public void report() {
+        /*new SimpleMailSender("Pair", "Date").sendmail();*/
         CandleDataImporter candleDataImporter = new CandleDataImporter(fullPathFilename);
         CandleData candleData = new CandleData(candleDataImporter.importCandles());
         VortexFinder vortexFinder = new VortexFinder(candleData);
@@ -46,7 +56,11 @@ public class SRReporter {
         Commander.showUptrendOrDowntrend(supportCandles - resistanceCandles);
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());
-        falseBreakOutInterpreter.checkForResistanceBreakOut(candleData);
-
+        FalseBreakoutCandle falseBreakoutCandle = falseBreakOutInterpreter.checkForResistanceBreakOut(candleData);
+        Optional<FalseBreakoutCandle> optionalFalseBreakoutCandle = Optional.ofNullable(falseBreakoutCandle);
+        if (optionalFalseBreakoutCandle.isPresent()){
+            SimpleMailSender simpleMailSender = new SimpleMailSender(optionalFalseBreakoutCandle.get().getPair(), optionalFalseBreakoutCandle.get().getCandleDate().toString());
+            simpleMailSender.sendmail();
+        }
     }
 }

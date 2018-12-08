@@ -1,4 +1,4 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.finder;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
@@ -17,7 +17,7 @@ public class VortexFinder {
         this.candleData = candleData;
     }
 
-    Map<Candle, String> findVortexes() {
+    public Map<Candle, String> findVortexes() {
         List<Candle> candleList = candleData.getCandles();
         Map<Candle, String> vortexCandleMap = new HashMap<>();
 

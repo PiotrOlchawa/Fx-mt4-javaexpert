@@ -1,4 +1,4 @@
-package org.mt4expert.javaexpert;
+package org.mt4expert.javaexpert.finder;
 
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;

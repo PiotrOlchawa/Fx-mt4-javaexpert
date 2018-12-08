@@ -4,7 +4,6 @@ import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 import org.mt4expert.javaexpert.data.CandleData;
 import org.mt4expert.javaexpert.datareader.CandleDataImporter;
-import org.mt4expert.javaexpert.mt4.Commander;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

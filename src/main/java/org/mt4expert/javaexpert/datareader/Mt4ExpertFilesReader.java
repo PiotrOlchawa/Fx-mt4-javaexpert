@@ -3,7 +3,7 @@ package org.mt4expert.javaexpert.datareader;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
-import org.mt4expert.javaexpert.mt4.Commander;
+import org.mt4expert.javaexpert.Commander;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

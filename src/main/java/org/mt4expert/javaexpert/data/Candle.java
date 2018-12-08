@@ -12,6 +12,8 @@ public class Candle {
     private Date date;
     private Integer index = null;
     private String symbol;
+    private int period;
+
 
     public Candle(Double open, Double high, Double low, Double close) {
         this.high = high;
@@ -22,6 +24,40 @@ public class Candle {
 
     public Candle() {
 
+    }
+
+    public String getPeriodInReadableFormat() {
+
+        switch (this.period) {
+            case 1:
+                return " 1M ";
+            case 5:
+                return " 5M ";
+            case 15:
+                return " 15M ";
+            case 30:
+                return " 30M ";
+            case 60:
+                return " 1H ";
+            case 240:
+                return "4H ";
+            case 1440:
+                return "1D ";
+            case 10080:
+                return "1W ";
+            case 43200:
+                return " 1M ";
+            default:
+                return " unknown ";
+        }
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
     public String getSymbol() {
@@ -88,12 +124,14 @@ public class Candle {
 
         Candle candle = (Candle) o;
 
+        if (period != candle.period) return false;
         if (open != null ? !open.equals(candle.open) : candle.open != null) return false;
         if (high != null ? !high.equals(candle.high) : candle.high != null) return false;
         if (low != null ? !low.equals(candle.low) : candle.low != null) return false;
         if (close != null ? !close.equals(candle.close) : candle.close != null) return false;
         if (date != null ? !date.equals(candle.date) : candle.date != null) return false;
-        return index != null ? index.equals(candle.index) : candle.index == null;
+        if (index != null ? !index.equals(candle.index) : candle.index != null) return false;
+        return symbol != null ? symbol.equals(candle.symbol) : candle.symbol == null;
     }
 
     @Override
@@ -104,6 +142,8 @@ public class Candle {
         result = 31 * result + (close != null ? close.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (index != null ? index.hashCode() : 0);
+        result = 31 * result + (symbol != null ? symbol.hashCode() : 0);
+        result = 31 * result + period;
         return result;
     }
 

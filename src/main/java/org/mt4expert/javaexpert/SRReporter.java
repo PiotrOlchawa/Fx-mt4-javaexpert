@@ -4,6 +4,7 @@ import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
 import org.mt4expert.javaexpert.data.CandleData;
 import org.mt4expert.javaexpert.datareader.CandleDataImporter;
+import org.mt4expert.javaexpert.mt4.Commander;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -27,7 +28,7 @@ public class SRReporter {
         List<Candle> supportCandleList = supportResistanceFinder.getSupports().getSupportCandlesList();
         int supportCandles = supportCandleList.size();
         if (supportCandles > 0) {
-            System.out.println(ExpertConfigurator.SUPPORT + supportCandleList.get(0).getSymbol());
+            Commander.showSupports(supportCandleList.get(0).getSymbol(),supportCandleList.get(0).getPeriodInReadableFormat());
             supportResistanceFinder.getSupports().getSupportCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
                     .collect(Collectors.toMap(Candle::getDate, Candle::getClose))
@@ -37,16 +38,13 @@ public class SRReporter {
         List<Candle> resistanceCandleList = supportResistanceFinder.getResistances().getResistanceCandlesList();
         int resistanceCandles = resistanceCandleList.size();
         if (resistanceCandles > 0) {
-            System.out.println(ExpertConfigurator.RESISTANCE + resistanceCandleList.get(0).getSymbol());
-
+            Commander.showResistances(resistanceCandleList.get(0).getSymbol(),resistanceCandleList.get(0).getPeriodInReadableFormat());
             supportResistanceFinder.getResistances().getResistanceCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
                     .collect(Collectors.toMap(Candle::getDate, Candle::getClose))
                     .entrySet().forEach(l -> System.out.println(" | " + sdf.format(l.getKey()) + " | " + l.getValue()));
         }
-        System.out.println((supportCandles - resistanceCandles > 0 ? ExpertConfigurator.UPTREND
-                : ExpertConfigurator.DOWNTREND));
-
+        Commander.showUptrendOrDowntrend(supportCandles - resistanceCandles);
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());
         falseBreakOutInterpreter.checkForResistanceBreakOut(candleData);

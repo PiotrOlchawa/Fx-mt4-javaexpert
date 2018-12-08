@@ -25,9 +25,9 @@ public class Mt4FolderProcessor {
             Map<String, Long> actualFilesMap = Arrays.stream(new File(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH).listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
             List<String> fileNamesDifferentialList = mt4FilesComparator.compareMap(actualFilesMap,ExpertConfigurator.FILES_MAP);
             if (fileNamesDifferentialList.size() == 0) {
-                System.out.println(ExpertConfigurator.NO_CHANGES);
+                Commander.showNoChanges();
             } else {
-                System.out.println(ExpertConfigurator.CHANGES + fileNamesDifferentialList);
+                Commander.showChanges(fileNamesDifferentialList);
             }
             processFiles(fileNamesDifferentialList);
         }
@@ -35,7 +35,7 @@ public class Mt4FolderProcessor {
 
     private static void processFiles(List<String> filesMap) {
         for (String fileName : filesMap) {
-            System.out.println(ExpertConfigurator.NEXT_PAIR);
+            Commander.nextPair();
             SRReporter SRReporter = new SRReporter(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH + fileName);
             SRReporter.report();
         }

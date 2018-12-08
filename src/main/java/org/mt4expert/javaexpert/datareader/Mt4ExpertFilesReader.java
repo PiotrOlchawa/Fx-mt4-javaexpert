@@ -3,6 +3,7 @@ package org.mt4expert.javaexpert.datareader;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
+import org.mt4expert.javaexpert.mt4.Commander;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,14 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CsvReader {
+public class Mt4ExpertFilesReader {
 
     private String csvFullPathFile = null;
     private static BufferedReader br = null;
     private static String line = "";
     private static final String cvsSplitBy = ",";
 
-    public CsvReader(String csvFullPathFile) {
+    public Mt4ExpertFilesReader(String csvFullPathFile) {
         this.csvFullPathFile = csvFullPathFile;
     }
 
@@ -43,11 +44,17 @@ public class CsvReader {
                 try {
                     candle.setDate(format.parse(oneCandle[4]));
                 } catch (ParseException e) {
-                    System.out.println(ExpertConfigurator.INPUT_PARSE_ERROR);
+                    Commander.inputParseError();
                 }
                 candle.setSymbol(oneCandle[5]);
                 candleList.add(candle);
-
+                if(oneCandle.length>6){
+                    try {
+                        candle.setPeriod(Integer.parseInt(oneCandle[6]));
+                    } catch (NumberFormatException e) {
+                        Commander.inputParseError();
+                    }
+                }
             }
 
         } catch (FileNotFoundException e) {

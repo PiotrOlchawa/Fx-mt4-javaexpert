@@ -2,6 +2,7 @@ package org.mt4expert.javaexpert.config;
 
 import org.mt4expert.javaexpert.datareader.FileConfigReader;
 
+import java.net.URL;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
@@ -9,8 +10,9 @@ import java.util.stream.Collectors;
 
 public class ExpertConfigurator {
 
+    //public static final String CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config").getPath();
+    public static final URL CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config");
     private static final Map<String, String> CONFIG_MAP = FileConfigReader.readConfig();
-    public static final String CONFIG_FILENAME = "expert.config";
     public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get("mt4DataFolder");
     public static Map<String, Long> FILES_MAP = Arrays.stream(new File(EXPERT_FILES_ABSOLUTE_PATH).listFiles())
             .collect(Collectors.toMap(l -> l.getName(), k -> k.length()));

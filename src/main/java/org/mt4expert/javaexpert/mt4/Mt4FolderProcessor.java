@@ -23,7 +23,8 @@ public class Mt4FolderProcessor {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Map<String, Long> actualFilesMap = Arrays.stream(new File(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH).listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
+            Map<String, Long> actualFilesMap = Arrays.stream(new File(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH)
+                    .listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
             List<String> fileNamesDifferentialList = mt4FilesComparator.compareMap(actualFilesMap,ExpertConfigurator.FILES_MAP);
             if (fileNamesDifferentialList.size() == 0) {
                 Commander.showNoChanges();

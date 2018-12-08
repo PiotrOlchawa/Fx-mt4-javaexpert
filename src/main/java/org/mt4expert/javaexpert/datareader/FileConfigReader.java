@@ -2,12 +2,11 @@ package org.mt4expert.javaexpert.datareader;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.mt4expert.javaexpert.config.ExpertConfigurator.CONFIG_FILENAME;
 
 public class FileConfigReader {
 
@@ -21,7 +20,8 @@ public class FileConfigReader {
 
         Map<String, String> configParameters = new HashMap<>();
         try {
-            br = new BufferedReader(new FileReader(ExpertConfigurator.CONFIG_FILENAME));
+            //br = new BufferedReader(new FileReader(ExpertConfigurator.CONFIG_FILENAME));
+            br = new BufferedReader(new InputStreamReader(CONFIG_FILENAME.openStream()));
             while ((line = br.readLine()) != null) {
                 String[] configParam = line.split(configParametersSplitBy);
                 if(configParam.length==2) {

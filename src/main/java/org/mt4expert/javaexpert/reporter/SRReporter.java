@@ -1,6 +1,7 @@
 package org.mt4expert.javaexpert.reporter;
 
 import org.mt4expert.javaexpert.Commander;
+import org.mt4expert.javaexpert.audioservice.AudioAllert;
 import org.mt4expert.javaexpert.interpreter.FalseBreakOutInterpreter;
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.Candle;
@@ -12,6 +13,9 @@ import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
 import org.mt4expert.javaexpert.mailservice.SimpleMailComposer;
 import org.mt4expert.javaexpert.mailservice.SimpleMailSender;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,8 +28,7 @@ public class SRReporter {
         this.fullPathFilename = fullPathFilename;
     }
 
-    public void report() {
-        /*new SimpleMailSender("Pair", "Date").sendmail();*/
+    public void report()  {
         CandleDataImporter candleDataImporter = new CandleDataImporter(fullPathFilename);
         CandleData candleData = new CandleData(candleDataImporter.importCandles());
         VortexFinder vortexFinder = new VortexFinder(candleData);
@@ -67,10 +70,15 @@ public class SRReporter {
         FalseBreakoutData falseBreakoutData = falseBreakOutInterpreter.checkForBreakOut(candleData,resistanceMap,supportMap);
         Optional<FalseBreakoutData> optionalFalseBreakoutCandle = Optional.ofNullable(falseBreakoutData);
 
-        if (optionalFalseBreakoutCandle.isPresent() && ExpertConfigurator.EMAIL_ALLERT) {
-            SimpleMailComposer simpleMailComposer = new SimpleMailComposer(optionalFalseBreakoutCandle.get());
-            SimpleMailSender simpleMailSender = new SimpleMailSender(simpleMailComposer);
-            simpleMailSender.sendmail();
+        if (optionalFalseBreakoutCandle.isPresent()) {
+            if(ExpertConfigurator.Sound_ALLERT){
+                AudioAllert.allert();
+            }
+            if(ExpertConfigurator.EMAIL_ALLERT) {
+                SimpleMailComposer simpleMailComposer = new SimpleMailComposer(optionalFalseBreakoutCandle.get());
+                SimpleMailSender simpleMailSender = new SimpleMailSender(simpleMailComposer);
+                simpleMailSender.sendmail();
+            }
         }
     }
 }

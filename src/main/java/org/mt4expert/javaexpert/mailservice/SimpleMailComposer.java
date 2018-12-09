@@ -7,7 +7,6 @@ import org.mt4expert.javaexpert.interpreter.TrendInterpreter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
 public class SimpleMailComposer {
     FalseBreakoutData falseBreakoutData;
@@ -15,7 +14,6 @@ public class SimpleMailComposer {
     public SimpleMailComposer(FalseBreakoutData falseBreakoutData) {
         this.falseBreakoutData = falseBreakoutData;
     }
-
 
     public String getEailSubject() {
         return ExpertConfigurator.EMAIL_SUBJECT_HEADER + " " + falseBreakoutData.getCandle().getSymbol();
@@ -45,10 +43,7 @@ public class SimpleMailComposer {
             outputStringBuilder.append(falseBreakoutData.getCandle().getSymbol() + "\n");
             supportMap.entrySet().forEach(l -> outputStringBuilder.append(" | " + sdf.format(l.getKey()) + " | " + l.getValue() + "\n"));
         }
-
         outputStringBuilder.append(trendInterpreter.getTrend() + "\n");
-
         return outputStringBuilder.toString();
     }
-
 }

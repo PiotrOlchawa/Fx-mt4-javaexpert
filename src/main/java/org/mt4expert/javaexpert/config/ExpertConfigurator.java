@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
 public class ExpertConfigurator {
 
     public static final URL CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config");
+    public static final URL WAVE_ALLERT_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("allert.wav");
     private static final Map<String, String> CONFIG_MAP = FileConfigReader.readConfig();
-    public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get("mt4DataFolder");
+
+    public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get(MT4_DATA_FOLDER());
     public static Map<String, Long> FILES_MAP = Arrays.stream(new File(EXPERT_FILES_ABSOLUTE_PATH).listFiles())
             .collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
     public static final int THREAD_SLEEP = 5000;
@@ -36,6 +38,8 @@ public class ExpertConfigurator {
     public static final String INPUT_PARSE_ERROR = "-------------------PARSE INPUT DATA(DATE) ERROR------------------------";
 
     public static final boolean EMAIL_ALLERT = Boolean.parseBoolean(CONFIG_MAP.get("email_allert"));
+    public static final boolean Sound_ALLERT = Boolean.parseBoolean(CONFIG_MAP.get("sound_allert"));
+
     public static final String MAIL_HOST = CONFIG_MAP.get("mail_host");
     public static final int MAIL_PORT = Integer.parseInt(CONFIG_MAP.get("mail_port"));
     public static final String EMAIL_USER = CONFIG_MAP.get("email_user");
@@ -45,4 +49,12 @@ public class ExpertConfigurator {
     public static final String EMAIL_FROM_NAME = CONFIG_MAP.get("email_from_name");
     public static final String EMAIL_TO_NAME = CONFIG_MAP.get("email_to_name");
     public static final String EMAIL_SUBJECT_HEADER = CONFIG_MAP.get("email_subject_header");
+
+    static final String MT4_DATA_FOLDER (){
+        if(System.getProperty("os.name").equals("Linux")){
+            return "linuxmt4DataFolder";
+        }
+        else return "mt4DataFolder";
+    }
+
 }

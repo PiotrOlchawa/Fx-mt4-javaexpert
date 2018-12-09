@@ -28,14 +28,14 @@ public class FalseBreakOutInterpreter {
 
         for (Candle candle : resistanceCandleList) {
             if (candleList.get(0).getHigh() > candle.getHigh()) {
-                System.out.println(Commander.showResistanceBreakOut() + candle.getSymbol() + " !! at " + candle.getDate());
+                System.out.println(Commander.showResistanceBreakOut() + candle.getSymbol() + " !! at " + candle.getDateInReadableFormat());
                 return new FalseBreakoutData(candle,resistanceMap,supportMap);
             }
         }
 
         for (Candle candle : supportCandlesList) {
             if (candleList.get(0).getLow() < candle.getLow()) {
-                System.out.println(Commander.showSupportBreakOut() + candle.getSymbol() + " !! at " + candle.getDate());
+                System.out.println(Commander.showSupportBreakOut() + candle.getSymbol() + " !! at " + candle.getDateInReadableFormat());
                 return new FalseBreakoutData(candle,resistanceMap,supportMap);
             }
         }

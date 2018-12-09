@@ -1,5 +1,8 @@
 package org.mt4expert.javaexpert.data;
 
+import org.mt4expert.javaexpert.config.ExpertConfigurator;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Candle {
@@ -13,6 +16,8 @@ public class Candle {
     private Integer index = null;
     private String symbol;
     private int period;
+
+    SimpleDateFormat sdf = new SimpleDateFormat(ExpertConfigurator.DATE_FORMAT);
 
 
     public Candle(Double open, Double high, Double low, Double close) {
@@ -69,8 +74,11 @@ public class Candle {
     }
 
     public Date getDate() {
-
         return date;
+    }
+
+    public String getDateInReadableFormat() {
+        return sdf.format(date);
     }
 
     public void setDate(Date date) {

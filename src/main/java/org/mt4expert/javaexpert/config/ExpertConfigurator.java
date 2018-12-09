@@ -18,7 +18,7 @@ public class ExpertConfigurator {
     public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get(MT4_DATA_FOLDER());
     public static Map<String, Long> FILES_MAP = Arrays.stream(new File(EXPERT_FILES_ABSOLUTE_PATH).listFiles())
             .filter(l->!l.getName().startsWith("___")).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
-    public static final int THREAD_SLEEP = 5000;
+    public static final int THREAD_SLEEP = 20000;
     public static final int CANDLE_LIST_SIZE_LIMIT = 500;
     public static final int HOW_MANY_CANDLES_CREATES_FB = 1;
     public static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";

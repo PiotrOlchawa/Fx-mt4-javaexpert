@@ -17,7 +17,8 @@ public class SimpleMailComposer {
     }
 
     public String getEailSubject() {
-        return ExpertConfigurator.EMAIL_SUBJECT_HEADER + " " + falseBreakoutData.getCandle().getSymbol();
+        return ExpertConfigurator.EMAIL_SUBJECT_HEADER + " " + falseBreakoutData.getCandle().getSymbol()
+                +" "+ falseBreakoutData.getCandle().getPeriodInReadableFormat();
     }
 
     public String getEmailText() {
@@ -27,6 +28,7 @@ public class SimpleMailComposer {
         StringBuilder outputStringBuilder = new StringBuilder();
         outputStringBuilder.append("--------------");
         outputStringBuilder.append(falseBreakoutData.getCandle().getSymbol());
+        outputStringBuilder.append(" " + falseBreakoutData.getCandle().getPeriodInReadableFormat()+ "\n");
         outputStringBuilder.append("--------------\n");
 
         Map<Date, Double> resistanceMap = falseBreakoutData.getResistanceMap();

@@ -32,12 +32,16 @@ public class Commander {
                 : Commander.showDownTrend()));
     }
 
-    private static String showUpTrend() {
+    public static String showUpTrend() {
         return ExpertConfigurator.UPTREND;
     }
 
-    private static String showDownTrend() {
+    public static String showDownTrend() {
         return ExpertConfigurator.DOWNTREND;
+    }
+
+    public static String noTrend() {
+        return ExpertConfigurator.NO_TREND;
     }
 
     public static void inputParseError() {

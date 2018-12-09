@@ -32,6 +32,7 @@ public class ExpertConfigurator {
     public static final String RESISTANCE = "Resistances for ";
     public static final String UPTREND = "------------UPTREND--------------";
     public static final String DOWNTREND = "------------DOWNTREND------------";
+    public static final String NO_TREND = "------------NO TREND------------";
     public static final String INPUT_PARSE_ERROR = "-------------------PARSE INPUT DATA(DATE) ERROR------------------------";
 
     public static final boolean EMAIL_ALLERT = Boolean.parseBoolean(CONFIG_MAP.get("email_allert"));
@@ -41,6 +42,7 @@ public class ExpertConfigurator {
     public static final String EMAIL_PASSOWRD = CONFIG_MAP.get("email_password");
     public static final String EMAIL_USER_TO = CONFIG_MAP.get("email_user_to");
     public static final String EMAIL_USER_FROM = CONFIG_MAP.get("email_user_from");
-    public static final String EMAIL_FROM_NAME = CONFIG_MAP.get("email_from_name");;
-    public static final String EMAIL_TO_NAME = CONFIG_MAP.get("email_to_name");;
+    public static final String EMAIL_FROM_NAME = CONFIG_MAP.get("email_from_name");
+    public static final String EMAIL_TO_NAME = CONFIG_MAP.get("email_to_name");
+    public static final String EMAIL_SUBJECT_HEADER = CONFIG_MAP.get("email_subject_header");
 }

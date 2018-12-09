@@ -1,4 +1,4 @@
-package org.mt4expert.javaexpert.sender;
+package org.mt4expert.javaexpert.mailservice;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.simplejavamail.email.EmailBuilder;
@@ -8,12 +8,11 @@ import org.simplejavamail.mailer.config.TransportStrategy;
 
 public class SimpleMailSender {
 
-    String emailSubject;
-    String emailText;
+    SimpleMailComposer simpleMailComposer;
 
-    public SimpleMailSender(String emailSubject, String emailText) {
-        this.emailSubject = emailSubject;
-        this.emailText = emailText;
+    public SimpleMailSender(SimpleMailComposer simpleMailComposer) {
+        this.simpleMailComposer = simpleMailComposer;
+
     }
 
     Mailer mailer = MailerBuilder
@@ -28,8 +27,8 @@ public class SimpleMailSender {
         mailer.sendMail(EmailBuilder.startingBlank()
                 .from(ExpertConfigurator.EMAIL_FROM_NAME, ExpertConfigurator.EMAIL_USER_FROM)
                 .to(ExpertConfigurator.EMAIL_TO_NAME, ExpertConfigurator.EMAIL_USER_TO)
-                .withSubject(emailSubject)
-                .withPlainText(emailText)
+                .withSubject(simpleMailComposer.getEailSubject())
+                .withPlainText(simpleMailComposer.getEmailText())
                 .buildEmail());
     }
 }

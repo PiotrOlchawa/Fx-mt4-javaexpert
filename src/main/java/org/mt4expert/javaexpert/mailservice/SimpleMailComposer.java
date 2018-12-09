@@ -26,9 +26,9 @@ public class SimpleMailComposer {
         SimpleDateFormat sdf = new SimpleDateFormat(ExpertConfigurator.DATE_FORMAT);
 
         StringBuilder outputStringBuilder = new StringBuilder();
-        outputStringBuilder.append("--------------");
+        outputStringBuilder.append("-------------");
         outputStringBuilder.append(falseBreakoutData.getCandle().getSymbol());
-        outputStringBuilder.append(" " + falseBreakoutData.getCandle().getPeriodInReadableFormat()+ "\n");
+        outputStringBuilder.append(" " + falseBreakoutData.getCandle().getPeriodInReadableFormat()+ " ");
         outputStringBuilder.append("--------------\n");
 
         Map<Date, Double> resistanceMap = falseBreakoutData.getResistanceMap();

@@ -24,8 +24,8 @@ public class ExpertConfigurator {
     public static final String MT4_DATE_FORMAT = "yyyy.MM.dd HH:mm";
     public static final String VORTEX_HIGH = "VORTEX_HIGH";
     public static final String VORTEX_LOW = "VORTEX_LOW";
-    public static final String RESISTANCE_BREAKOUT = "---------------------------------Resistance BreakOut ";
-    public static final String SUPPORT_BREAKOUT = "-------------------------------------Support BreakOut " ;
+    public static final String RESISTANCE_BREAKOUT = "-----------Resistance BreakOut ";
+    public static final String SUPPORT_BREAKOUT = "-----------Support BreakOut " ;
 
     public static final String NO_CHANGES = "No new files or changes, waiting..";
     public static final String CHANGES = "New files to process ";

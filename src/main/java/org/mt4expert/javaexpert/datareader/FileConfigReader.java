@@ -20,8 +20,7 @@ public class FileConfigReader {
 
         Map<String, String> configParameters = new HashMap<>();
         try {
-            //br = new BufferedReader(new FileReader(ExpertConfigurator.CONFIG_FILENAME));
-            br = new BufferedReader(new InputStreamReader(CONFIG_FILENAME.openStream()));
+            br = new BufferedReader(new InputStreamReader(ExpertConfigurator.CONFIG_FILENAME.openStream()));
             while ((line = br.readLine()) != null) {
                 String[] configParam = line.split(configParametersSplitBy);
                 if(configParam.length==2) {

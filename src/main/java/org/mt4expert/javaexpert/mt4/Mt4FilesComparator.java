@@ -15,7 +15,7 @@ public class Mt4FilesComparator {
 
         differentialFilenamesMap.entrySet().stream()
                 .forEach((k) -> filesMap.put(k.getKey(), k.getValue()));
-        //stare pliki
+        //stare pliki zawartosc
         getOldFilesStream(actualFilesMap, filesMap).forEach(l -> differentialFilenamesMap.put(l.getKey(), l.getValue()));
         getOldFilesStream(actualFilesMap, filesMap).forEach(l -> filesMap.put(l.getKey(), l.getValue()));
 

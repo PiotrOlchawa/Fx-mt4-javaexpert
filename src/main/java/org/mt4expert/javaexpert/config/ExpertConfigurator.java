@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class ExpertConfigurator {
 
-    //public static final String CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config").getPath();
     public static final URL CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config");
     private static final Map<String, String> CONFIG_MAP = FileConfigReader.readConfig();
     public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get("mt4DataFolder");

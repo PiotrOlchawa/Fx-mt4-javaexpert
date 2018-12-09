@@ -24,7 +24,7 @@ public class Mt4FolderProcessor {
                 e.printStackTrace();
             }
             Map<String, Long> actualFilesMap = Arrays.stream(new File(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH)
-                    .listFiles()).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
+                    .listFiles()).filter(l->!l.getName().startsWith("___")).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
             List<String> fileNamesDifferentialList = mt4FilesComparator.compareMap(actualFilesMap,ExpertConfigurator.FILES_MAP);
             if (fileNamesDifferentialList.size() == 0) {
                 Commander.showNoChanges();

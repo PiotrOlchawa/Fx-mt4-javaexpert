@@ -1,6 +1,7 @@
 package org.mt4expert.javaexpert.mailservice;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
+import org.mt4expert.javaexpert.data.BreakoutType;
 import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
 import org.mt4expert.javaexpert.interpreter.TrendInterpreter;
 
@@ -29,7 +30,7 @@ public class SimpleMailComposer {
         outputStringBuilder.append("--------------\n");
 
         Map<Date, Double> resistanceMap = falseBreakoutData.getResistanceMap();
-        Map<Date, Double> supportMap = falseBreakoutData.getSupporteMap();
+        Map<Date, Double> supportMap = falseBreakoutData.getSupportMap();
         TrendInterpreter trendInterpreter = new TrendInterpreter(resistanceMap.size(), supportMap.size());
 
         if (resistanceMap.size() > 0) {
@@ -43,6 +44,17 @@ public class SimpleMailComposer {
             outputStringBuilder.append(falseBreakoutData.getCandle().getSymbol() + "\n");
             supportMap.entrySet().forEach(l -> outputStringBuilder.append(" | " + sdf.format(l.getKey()) + " | " + l.getValue() + "\n"));
         }
+
+        if (falseBreakoutData.getCandle().getBreakoutType().equals(BreakoutType.RESISTANCE)) {
+            outputStringBuilder.append(ExpertConfigurator.RESISTANCE_BREAKOUT
+                    + " | " + falseBreakoutData.getCandle().getDateInReadableFormat() + " | " + falseBreakoutData.getCandle().getHigh() + "\n");
+        }
+
+        if (falseBreakoutData.getCandle().getBreakoutType().equals(BreakoutType.SUPPORT)) {
+            outputStringBuilder.append(ExpertConfigurator.SUPPORT_BREAKOUT
+                    + " | " + falseBreakoutData.getCandle().getDateInReadableFormat() + " | " + falseBreakoutData.getCandle().getLow() + "\n");
+        }
+
         outputStringBuilder.append(trendInterpreter.getTrend() + "\n");
         return outputStringBuilder.toString();
     }

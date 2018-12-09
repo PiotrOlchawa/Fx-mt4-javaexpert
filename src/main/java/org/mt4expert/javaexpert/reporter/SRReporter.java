@@ -12,10 +12,8 @@ import org.mt4expert.javaexpert.finder.VortexFinder;
 import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
 import org.mt4expert.javaexpert.mailservice.SimpleMailComposer;
 import org.mt4expert.javaexpert.mailservice.SimpleMailSender;
+import org.mt4expert.javaexpert.mt4.BreakoutFilesWriterForMt4;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,7 +45,7 @@ public class SRReporter {
 
             supportMap = supportResistanceFinder.getSupports().getSupportCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
-                    .collect(Collectors.toMap(Candle::getDate, Candle::getClose));
+                    .collect(Collectors.toMap(Candle::getDate, Candle::getLow));
             supportMap.entrySet().forEach(l -> System.out.println(" | " + sdf.format(l.getKey()) + " | " + l.getValue()));
         }
 
@@ -59,7 +57,7 @@ public class SRReporter {
 
             resistanceMap = supportResistanceFinder.getResistances().getResistanceCandlesList().stream()
                     .collect(Collectors.toSet()).stream()
-                    .collect(Collectors.toMap(Candle::getDate, Candle::getClose));
+                    .collect(Collectors.toMap(Candle::getDate, Candle::getHigh));
             resistanceMap.entrySet().forEach(l -> System.out.println(" | " + sdf.format(l.getKey()) + " | " + l.getValue()));
         }
 
@@ -67,15 +65,20 @@ public class SRReporter {
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());
 
+        ///////////////
         FalseBreakoutData falseBreakoutData = falseBreakOutInterpreter.checkForBreakOut(candleData,resistanceMap,supportMap);
-        Optional<FalseBreakoutData> optionalFalseBreakoutCandle = Optional.ofNullable(falseBreakoutData);
+        Optional<FalseBreakoutData> optionalFalseBreakoutData = Optional.ofNullable(falseBreakoutData);
 
-        if (optionalFalseBreakoutCandle.isPresent()) {
+        if (optionalFalseBreakoutData.isPresent()) {
+            if(ExpertConfigurator.WRITE_BREAKOUT_FILES_FOR_MT4){
+                BreakoutFilesWriterForMt4 breakoutFilesWriterForMt4 = new BreakoutFilesWriterForMt4(optionalFalseBreakoutData.get());
+                breakoutFilesWriterForMt4.write();
+            }
             if(ExpertConfigurator.Sound_ALLERT){
                 AudioAllert.allert();
             }
             if(ExpertConfigurator.EMAIL_ALLERT) {
-                SimpleMailComposer simpleMailComposer = new SimpleMailComposer(optionalFalseBreakoutCandle.get());
+                SimpleMailComposer simpleMailComposer = new SimpleMailComposer(optionalFalseBreakoutData.get());
                 SimpleMailSender simpleMailSender = new SimpleMailSender(simpleMailComposer);
                 simpleMailSender.sendmail();
             }

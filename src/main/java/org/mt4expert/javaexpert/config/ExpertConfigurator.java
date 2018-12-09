@@ -12,15 +12,16 @@ public class ExpertConfigurator {
 
     public static final URL CONFIG_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("expert.config");
     public static final URL WAVE_ALLERT_FILENAME = ExpertConfigurator.class.getClassLoader().getResource("allert.wav");
+    public static final String MT4_FILES_FOLDER = MT4_DATA_FOLDER();
     private static final Map<String, String> CONFIG_MAP = FileConfigReader.readConfig();
 
     public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get(MT4_DATA_FOLDER());
     public static Map<String, Long> FILES_MAP = Arrays.stream(new File(EXPERT_FILES_ABSOLUTE_PATH).listFiles())
-            .collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
+            .filter(l->!l.getName().startsWith("___")).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
     public static final int THREAD_SLEEP = 5000;
     public static final int CANDLE_LIST_SIZE_LIMIT = 500;
     public static final int HOW_MANY_CANDLES_CREATES_FB = 1;
-    public static final String DATE_FORMAT = "dd.MM.yyy HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
     public static final String MT4_DATE_FORMAT = "yyyy.MM.dd HH:mm";
     public static final String VORTEX_HIGH = "VORTEX_HIGH";
     public static final String VORTEX_LOW = "VORTEX_LOW";
@@ -49,6 +50,7 @@ public class ExpertConfigurator {
     public static final String EMAIL_FROM_NAME = CONFIG_MAP.get("email_from_name");
     public static final String EMAIL_TO_NAME = CONFIG_MAP.get("email_to_name");
     public static final String EMAIL_SUBJECT_HEADER = CONFIG_MAP.get("email_subject_header");
+    public static final boolean WRITE_BREAKOUT_FILES_FOR_MT4 = true;
 
     static final String MT4_DATA_FOLDER (){
         if(System.getProperty("os.name").equals("Linux")){

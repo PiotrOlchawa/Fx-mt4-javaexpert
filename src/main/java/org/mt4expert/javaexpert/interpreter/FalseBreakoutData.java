@@ -34,7 +34,7 @@ public class FalseBreakoutData {
         this.resistanceMap = resistanceMap;
     }
 
-    public Map<Date, Double> getSupporteMap() {
+    public Map<Date, Double> getSupportMap() {
         return supporteMap;
     }
 

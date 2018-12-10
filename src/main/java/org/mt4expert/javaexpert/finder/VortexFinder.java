@@ -29,12 +29,17 @@ public class VortexFinder {
                 boolean trueVortex = true;
                 for (int j = i - 1; j >= ExpertConfigurator.HOW_MANY_CANDLES_CREATES_FB; j--) {
                     // jesli swieca zamyka sie wyzej high candle - high jest odrzucane
-                    if (returnHighCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) > candle.getHigh())
+                    if (returnHighCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) > candle.getHigh()) {
                         trueVortex = false;
+                        break;
+                    }
                     // jesli zamkniecie jest wyzej zamkniecia candle oraz high jest wyzsze niz niz high candle - high jest odrzucane
                     if (returnHighCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j))
                             > returnHighCandleOpenOrCloseDependsOnCloseDirection(candle)
-                            && candleList.get(j).getHigh() > candle.getHigh()) trueVortex = false;
+                            && candleList.get(j).getHigh() > candle.getHigh()) {
+                        trueVortex = false;
+                        break;
+                    }
                 }
                 if (trueVortex) {
                     candleList.get(i).setIndex(i);
@@ -46,11 +51,16 @@ public class VortexFinder {
                 Candle candle = subCandles.get(2);
                 boolean trueVortex = true;
                 for (int j = i - 1; j >= ExpertConfigurator.HOW_MANY_CANDLES_CREATES_FB; j--) {
-                    if (returnForLowCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) < candle.getLow())
+                    if (returnForLowCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) < candle.getLow()) {
                         trueVortex = false;
+                        break;
+                    }
                     if (returnForLowCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j))
                             < returnForLowCandleOpenOrCloseDependsOnCloseDirection(candle)
-                            && candleList.get(j).getLow() < candle.getLow()) trueVortex = false;
+                            && candleList.get(j).getLow() < candle.getLow()) {
+                        trueVortex = false;
+                        break;
+                    }
                 }
                 if (trueVortex) {
                     candleList.get(i).setIndex(i);

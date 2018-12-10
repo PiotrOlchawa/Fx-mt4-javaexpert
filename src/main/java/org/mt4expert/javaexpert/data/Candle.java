@@ -37,25 +37,25 @@ public class Candle {
 
         switch (this.period) {
             case 1:
-                return " 1M ";
+                return "_M1";
             case 5:
-                return " 5M ";
+                return "_M5";
             case 15:
-                return " 15M ";
+                return "_M15";
             case 30:
-                return " 30M ";
+                return "_M30";
             case 60:
-                return " 1H ";
+                return "_H1";
             case 240:
-                return "4H ";
+                return "_H4";
             case 1440:
-                return "1D ";
+                return "_Daily";
             case 10080:
-                return "1W ";
+                return "_Weekly";
             case 43200:
-                return " 1M ";
+                return "_Monthly";
             default:
-                return " unknown ";
+                return "_unknown";
         }
     }
 

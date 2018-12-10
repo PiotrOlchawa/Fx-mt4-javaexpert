@@ -10,7 +10,7 @@ public class Runner {
 
     static {
         String path = Runner.class.getClassLoader().getResource("expert.config").getPath();
-        System.out.println(path);
+        System.out.println("Configuration file path: " + path);
     }
 
     public static void main(String[] args) {

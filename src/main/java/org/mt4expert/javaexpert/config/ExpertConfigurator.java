@@ -29,7 +29,7 @@ public class ExpertConfigurator {
             .collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
 
     public static final int THREAD_SLEEP = 20000;
-    public static final int CANDLE_LIST_SIZE_LIMIT = 2000;
+    public static final int CANDLE_LIST_SIZE_LIMIT = 500;
     public static final int HOW_MANY_CANDLES_CREATES_FB = 2;
     // VORTEX_DEEP - possible values are 1 or 2 deep means how many candles surrounding vortex (at each side) should be below high
     //for vortex high and vice versa for vortex low (should be scalable in future versions to any value).

@@ -17,6 +17,7 @@ public class Candle {
     private String symbol;
     private int period;
     private BreakoutType breakoutType;
+    private SRType SRType;
 
     SimpleDateFormat sdf = new SimpleDateFormat(ExpertConfigurator.DATE_FORMAT);
 
@@ -60,6 +61,14 @@ public class Candle {
 
     public BreakoutType getBreakoutType() {
         return breakoutType;
+    }
+
+    public SRType getSRType() {
+        return SRType;
+    }
+
+    public void setSRType(SRType SRType) {
+        this.SRType = SRType;
     }
 
     public void setBreakoutType(BreakoutType breakoutType) {

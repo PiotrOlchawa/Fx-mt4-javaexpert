@@ -3,9 +3,8 @@ package org.mt4expert.javaexpert.interpreter;
 import org.mt4expert.javaexpert.Commander;
 import org.mt4expert.javaexpert.data.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 
 public class FalseBreakOutInterpreter {
@@ -18,7 +17,7 @@ public class FalseBreakOutInterpreter {
         this.resistances = resistances;
     }
 
-    public FalseBreakoutData checkForBreakOut(CandleData candleData, Map<Date, Double> resistanceMap, Map<Date, Double> supportMap) {
+    public FalseBreakoutData checkForBreakOut(CandleData candleData, Set<Candle> resistanceSet, Set<Candle> supportSet) {
         List<Candle> candleList = candleData.getCandles();
         List<Candle> resistanceCandleList = resistances.getResistanceCandlesList();
         List<Candle> supportCandlesList = supports.getSupportCandlesList();
@@ -28,7 +27,7 @@ public class FalseBreakOutInterpreter {
                 candle.setBreakoutType(BreakoutType.RESISTANCE);
                 System.out.println(Commander.showResistanceBreakOut() + candle.getSymbol()
                         + " | " + candle.getDateInReadableFormat() + " | " + candle.getHigh());
-                return new FalseBreakoutData(candle,resistanceMap,supportMap);
+                return new FalseBreakoutData(candle,resistanceSet,supportSet);
             }
         }
 
@@ -37,7 +36,7 @@ public class FalseBreakOutInterpreter {
                 candle.setBreakoutType(BreakoutType.SUPPORT);
                 System.out.println(Commander.showSupportBreakOut() + candle.getSymbol()
                         + " | " + candle.getDateInReadableFormat() + " | " + candle.getLow());
-                return new FalseBreakoutData(candle,resistanceMap,supportMap);
+                return new FalseBreakoutData(candle,resistanceSet,supportSet);
             }
         }
         return null;

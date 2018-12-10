@@ -37,9 +37,6 @@ public class Commander {
         if(i==0){
             Commander.showNoTrend();
         }
-
-        System.out.println((i > 0 ? Commander.showUpTrend()
-                : Commander.showDownTrend()));
     }
 
     private static String  showNoTrend() {

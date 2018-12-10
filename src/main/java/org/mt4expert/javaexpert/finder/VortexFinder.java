@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class VortexFinder {
 
-
     CandleData candleData;
 
     public VortexFinder(CandleData candleData) {
@@ -26,13 +25,15 @@ public class VortexFinder {
             List<Candle> subCandles = candleList.subList(i - 2, i + 3);
 
             if (checkForHigh(subCandles)) {
-                Candle candle = candleList.get(i);
+                Candle candle = subCandles.get(2);
                 boolean trueVortex = true;
                 for (int j = i - 1; j >= ExpertConfigurator.HOW_MANY_CANDLES_CREATES_FB; j--) {
                     // jesli swieca zamyka sie wyzej high candle - high jest odrzucane
-                    if (candleList.get(j).getClose() > candle.getHigh()) trueVortex = false;
+                    if (returnHighCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) > candle.getHigh())
+                        trueVortex = false;
                     // jesli zamkniecie jest wyzej zamkniecia candle oraz high jest wyzsze niz niz high candle - high jest odrzucane
-                    if (candleList.get(j).getClose() > candle.getClose()
+                    if (returnHighCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j))
+                            > returnHighCandleOpenOrCloseDependsOnCloseDirection(candle)
                             && candleList.get(j).getHigh() > candle.getHigh()) trueVortex = false;
                 }
                 if (trueVortex) {
@@ -42,12 +43,14 @@ public class VortexFinder {
             }
 
             if (checkForLow(subCandles)) {
-                Candle candle = candleList.get(i);
+                Candle candle = subCandles.get(2);
                 boolean trueVortex = true;
                 for (int j = i - 1; j >= ExpertConfigurator.HOW_MANY_CANDLES_CREATES_FB; j--) {
-                    if (candleList.get(j).getClose() < candle.getLow()) trueVortex = false;
-                    if (candleList.get(j).getClose() < candle.getClose()
-                            && candleList.get(j).getLow() > candle.getLow()) trueVortex = false;
+                    if (returnForLowCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j)) < candle.getLow())
+                        trueVortex = false;
+                    if (returnForLowCandleOpenOrCloseDependsOnCloseDirection(candleList.get(j))
+                            < returnForLowCandleOpenOrCloseDependsOnCloseDirection(candle)
+                            && candleList.get(j).getLow() < candle.getLow()) trueVortex = false;
                 }
                 if (trueVortex) {
                     candleList.get(i).setIndex(i);
@@ -58,6 +61,21 @@ public class VortexFinder {
         return vortexCandleMap;
     }
 
+    private Double returnHighCandleOpenOrCloseDependsOnCloseDirection(Candle candle) {
+        if (candle.getClose() - candle.getOpen() >= 0) {
+            return candle.getClose();
+        }
+        return candle.getOpen();
+    }
+
+    private Double returnForLowCandleOpenOrCloseDependsOnCloseDirection(Candle candle) {
+        if (candle.getClose() - candle.getOpen() >= 0) {
+            return candle.getOpen();
+        }
+        return candle.getClose();
+    }
+
+    // sprawdza czy swieca jest high
     private boolean checkForHigh(List<Candle> subCandles) {
         double highCentral = subCandles.get(2).getHigh();
         double highForward = subCandles.get(3).getHigh();
@@ -65,10 +83,21 @@ public class VortexFinder {
         double highBackward = subCandles.get(1).getHigh();
         double highBackward1 = subCandles.get(0).getHigh();
 
-        return highCentral > highForward && highCentral > highForward1
-                && highCentral > highBackward && highCentral > highBackward1;
+/*        if (highCentral==0.71917) System.out.println(highCentral > highForward && highCentral > highForward1
+                && highCentral > highBackward && highCentral > highBackward1);
+        */
+        if (ExpertConfigurator.VORTEX_DEEP == 2) {
+            return highCentral > highForward && highCentral > highForward1
+                    && highCentral > highBackward && highCentral > highBackward1;
+        }
+        if (ExpertConfigurator.VORTEX_DEEP == 1) {
+            return highCentral > highForward
+                    && highCentral > highBackward;
+        }
+        return false;
     }
 
+    //sprawdza czy swieca jest low
     private boolean checkForLow(List<Candle> subCandles) {
         double lowCentral = subCandles.get(2).getLow();
         double lowForward = subCandles.get(3).getLow();
@@ -76,7 +105,14 @@ public class VortexFinder {
         double lowBackward = subCandles.get(1).getLow();
         double lowBackward1 = subCandles.get(0).getLow();
 
-        return lowCentral < lowForward && lowCentral < lowForward1
-                && lowCentral < lowBackward && lowCentral < lowBackward1;
+        if (ExpertConfigurator.VORTEX_DEEP == 2) {
+            return lowCentral < lowForward && lowCentral < lowForward1
+                    && lowCentral < lowBackward && lowCentral < lowBackward1;
+        }
+        if (ExpertConfigurator.VORTEX_DEEP == 1) {
+            return lowCentral < lowForward
+                    && lowCentral < lowBackward;
+        }
+        return false;
     }
 }

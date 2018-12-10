@@ -2,20 +2,18 @@ package org.mt4expert.javaexpert.interpreter;
 
 import org.mt4expert.javaexpert.data.Candle;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FalseBreakoutData {
 
     Candle candle;
-    Map<Date, Double> resistanceMap = new HashMap<>();
-    Map<Date, Double> supporteMap = new HashMap<>();
+    Set<Candle> resistanceSet = new HashSet<>();
+    Set<Candle> supportSet = new HashSet<>();
 
-    public FalseBreakoutData(Candle candle,Map<Date, Double> resistanceMap,Map<Date, Double> supportMap) {
+    public FalseBreakoutData(Candle candle, Set<Candle> resistanceSet, Set<Candle> supportSet) {
         this.candle = candle;
-        this.supporteMap =supportMap;
-        this.resistanceMap =resistanceMap;
+        this.resistanceSet = resistanceSet;
+        this.supportSet = supportSet;
     }
 
     public Candle getCandle() {
@@ -26,19 +24,19 @@ public class FalseBreakoutData {
         this.candle = candle;
     }
 
-    public Map<Date, Double> getResistanceMap() {
-        return resistanceMap;
+    public Set<Candle> getResistanceSet() {
+        return resistanceSet;
     }
 
-    public void setResistanceMap(Map<Date, Double> resistanceMap) {
-        this.resistanceMap = resistanceMap;
+    public void setResistanceSet(Set<Candle> resistanceSet) {
+        this.resistanceSet = resistanceSet;
     }
 
-    public Map<Date, Double> getSupportMap() {
-        return supporteMap;
+    public Set<Candle> getSupportSet() {
+        return supportSet;
     }
 
-    public void setSupporteMap(Map<Date, Double> supporteMap) {
-        this.supporteMap = supporteMap;
+    public void setSupportSet(Set<Candle> supportSet) {
+        this.supportSet = supportSet;
     }
 }

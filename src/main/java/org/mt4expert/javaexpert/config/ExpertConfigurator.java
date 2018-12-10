@@ -16,8 +16,10 @@ public class ExpertConfigurator {
     private static final Map<String, String> CONFIG_MAP = FileConfigReader.readConfig();
 
     public static final String EXPERT_FILES_ABSOLUTE_PATH = CONFIG_MAP.get(MT4_DATA_FOLDER());
+    public static final String EXCLUDE_FILES_WITH_PREFIX ="___";
     public static Map<String, Long> FILES_MAP = Arrays.stream(new File(EXPERT_FILES_ABSOLUTE_PATH).listFiles())
-            .filter(l->!l.getName().startsWith("___")).collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
+            .filter(l->!l.getName().startsWith(ExpertConfigurator.EXCLUDE_FILES_WITH_PREFIX))
+            .collect(Collectors.toMap(l -> l.getName(), k -> k.length()));
     public static final int THREAD_SLEEP = 20000;
     public static final int CANDLE_LIST_SIZE_LIMIT = 500;
     public static final int HOW_MANY_CANDLES_CREATES_FB = 1;
@@ -25,9 +27,9 @@ public class ExpertConfigurator {
     public static final String MT4_DATE_FORMAT = "yyyy.MM.dd HH:mm";
     public static final String VORTEX_HIGH = "VORTEX_HIGH";
     public static final String VORTEX_LOW = "VORTEX_LOW";
+
     public static final String RESISTANCE_BREAKOUT = "-----------Resistance BreakOut ";
     public static final String SUPPORT_BREAKOUT = "-----------Support BreakOut " ;
-
     public static final String NO_CHANGES = "No new files or changes, waiting..";
     public static final String CHANGES = "New files to process ";
     public static final String NEXT_PAIR = "-----------------------------------NEXT PAIR-----------------------------------";
@@ -38,6 +40,7 @@ public class ExpertConfigurator {
     public static final String NO_TREND = "------------NO TREND------------";
     public static final String INPUT_PARSE_ERROR = "-------------------PARSE INPUT DATA(DATE) ERROR------------------------";
 
+    public static final Boolean EMAIL_DEBUGGING = false ;
     public static final boolean EMAIL_ALLERT = Boolean.parseBoolean(CONFIG_MAP.get("email_allert"));
     public static final boolean Sound_ALLERT = Boolean.parseBoolean(CONFIG_MAP.get("sound_allert"));
 
@@ -58,5 +61,4 @@ public class ExpertConfigurator {
         }
         else return "mt4DataFolder";
     }
-
 }

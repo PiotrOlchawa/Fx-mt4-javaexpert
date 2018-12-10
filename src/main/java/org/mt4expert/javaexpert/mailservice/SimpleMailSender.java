@@ -20,7 +20,7 @@ public class SimpleMailSender {
             .withTransportStrategy(TransportStrategy.SMTP_TLS)
             .withSessionTimeout(10 * 1000)
             .clearEmailAddressCriteria() // turns off email validation
-            /*.withDebugLogging(true)*/
+            .withDebugLogging(ExpertConfigurator.EMAIL_DEBUGGING)
             .buildMailer();
 
     public void sendmail() {

@@ -19,8 +19,8 @@ public class BreakoutFilesWriterForMt4 {
     public void write() {
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH+"___"+falseBreakoutData.getCandle().getSymbol()+
-                    falseBreakoutData.getCandle().getPeriod()+".csv", "UTF-8");
+            writer = new PrintWriter(ExpertConfigurator.EXPERT_FILES_ABSOLUTE_PATH+ExpertConfigurator.EXCLUDE_FILES_WITH_PREFIX
+                    +falseBreakoutData.getCandle().getSymbol()+ falseBreakoutData.getCandle().getPeriod()+".csv", "UTF-8");
             if (falseBreakoutData.getCandle().getBreakoutType().equals(BreakoutType.SUPPORT)) {
                 writer.println(falseBreakoutData.getCandle().getLow()+";"+falseBreakoutData.getCandle().getDateInReadableFormat());
             }

@@ -63,7 +63,7 @@ public class Candle {
     }
 
     public void setBreakoutType(BreakoutType breakoutType) {
-    this.breakoutType=breakoutType;
+        this.breakoutType = breakoutType;
     }
 
 

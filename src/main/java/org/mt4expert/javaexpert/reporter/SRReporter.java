@@ -65,7 +65,7 @@ public class SRReporter {
         FalseBreakOutInterpreter falseBreakOutInterpreter =
                 new FalseBreakOutInterpreter(supportResistanceFinder.getSupports(), supportResistanceFinder.getResistances());
 
-        ///////////////
+
         FalseBreakoutData falseBreakoutData = falseBreakOutInterpreter.checkForBreakOut(candleData,resistanceMap,supportMap);
         Optional<FalseBreakoutData> optionalFalseBreakoutData = Optional.ofNullable(falseBreakoutData);
 

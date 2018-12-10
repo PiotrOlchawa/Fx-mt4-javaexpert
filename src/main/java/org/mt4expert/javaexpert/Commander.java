@@ -28,8 +28,22 @@ public class Commander {
     }
 
     public static void showUptrendOrDowntrend(int i) {
+        if(i>0){
+            Commander.showUpTrend();
+        }
+        if(i<0){
+            Commander.showDownTrend();
+        }
+        if(i==0){
+            Commander.showNoTrend();
+        }
+
         System.out.println((i > 0 ? Commander.showUpTrend()
                 : Commander.showDownTrend()));
+    }
+
+    private static String  showNoTrend() {
+        return ExpertConfigurator.NO_TREND;
     }
 
     public static String showUpTrend() {

@@ -2,7 +2,7 @@ package org.mt4expert.javaexpert.mt4;
 
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.BreakoutType;
-import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
+import org.mt4expert.javaexpert.data.FalseBreakoutData;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

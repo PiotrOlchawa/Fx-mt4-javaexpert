@@ -1,4 +1,4 @@
-package org.mt4expert.javaexpert.interpreter;
+package org.mt4expert.javaexpert.data;
 
 import org.mt4expert.javaexpert.data.Candle;
 

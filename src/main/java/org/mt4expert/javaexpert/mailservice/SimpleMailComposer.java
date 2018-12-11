@@ -3,12 +3,10 @@ package org.mt4expert.javaexpert.mailservice;
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 import org.mt4expert.javaexpert.data.BreakoutType;
 import org.mt4expert.javaexpert.data.Candle;
-import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
+import org.mt4expert.javaexpert.data.FalseBreakoutData;
 import org.mt4expert.javaexpert.interpreter.TrendInterpreter;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 
 public class SimpleMailComposer {

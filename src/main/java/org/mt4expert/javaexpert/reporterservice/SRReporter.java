@@ -1,4 +1,4 @@
-package org.mt4expert.javaexpert.reporter;
+package org.mt4expert.javaexpert.reporterservice;
 
 import org.mt4expert.javaexpert.Commander;
 import org.mt4expert.javaexpert.audioservice.AudioAllert;
@@ -9,7 +9,7 @@ import org.mt4expert.javaexpert.data.CandleData;
 import org.mt4expert.javaexpert.datareader.CandleDataImporter;
 import org.mt4expert.javaexpert.finder.SupportResistanceFinder;
 import org.mt4expert.javaexpert.finder.VortexFinder;
-import org.mt4expert.javaexpert.interpreter.FalseBreakoutData;
+import org.mt4expert.javaexpert.data.FalseBreakoutData;
 import org.mt4expert.javaexpert.mailservice.SimpleMailComposer;
 import org.mt4expert.javaexpert.mailservice.SimpleMailSender;
 import org.mt4expert.javaexpert.mt4.BreakoutFilesWriterForMt4;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SRReporter {
 

@@ -62,27 +62,17 @@ public class SupportResistanceFinder {
             if (candle.getClose() - candle.getOpen() >= 0) {
                 // check checkedCandle if up CHU
                 if (checkedCandle.getClose() - checkedCandle.getOpen() >= 0) {
-                    // check if high checkedCandle is above high of candle B
-                    if (checkedCandle.getHigh() > candle.getHigh() && checkedCandle.getClose() < candle.getClose()) {
-                        checkedCandle.setSRType(SRType.R_CU_CHU_B);
-                        resistances.getResistanceCandlesList().add(checkedCandle);
-                    }
                     // check if high checkedCandle is below high and above close of candle  NB
                     if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getClose()) {
-                        candle.setSRType(SRType.R_CU_CHU_NB);
+                        candle.setSRType(SRType.R_CU_CHU);
                         resistances.getResistanceCandlesList().add(candle);
                     }
                 }
                 // check checkedCandle if down CHD
                 if (checkedCandle.getClose() - checkedCandle.getOpen() < 0) {
-                    // check if high checkedCandle is above high of candle B
-                    if (checkedCandle.getHigh() > candle.getHigh() && checkedCandle.getOpen() < candle.getClose()) {
-                        checkedCandle.setSRType(SRType.R_CU_CHD_B);
-                        resistances.getResistanceCandlesList().add(checkedCandle);
-                    }
                     // check if high checkedCandle is below high and above close of candle  NB
                     if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getClose()) {
-                        candle.setSRType(SRType.R_CU_CHD_NB);
+                        candle.setSRType(SRType.R_CU_CHD);
                         resistances.getResistanceCandlesList().add(candle);
                     }
                 }
@@ -92,32 +82,21 @@ public class SupportResistanceFinder {
             if (candle.getClose() - candle.getOpen() < 0) {
                 // check checkedCandle if up CHU
                 if (checkedCandle.getClose() - checkedCandle.getOpen() >= 0) {
-                    // check if high checkedCandle is above high of candle B
-                    if (checkedCandle.getHigh() > candle.getHigh() && checkedCandle.getClose() < candle.getOpen()){
-                        checkedCandle.setSRType(SRType.R_CD_CHU_B);
-                        resistances.getResistanceCandlesList().add(checkedCandle);
-                    }
                     // check if high checkedCandle is below high of candle NB
-                    if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()){
-                        candle.setSRType(SRType.R_CD_CHU_NB);
+                    if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()) {
+                        candle.setSRType(SRType.R_CD_CHU);
                         resistances.getResistanceCandlesList().add(candle);
                     }
                 }
                 // check checkedCandle if down CHD
                 if (checkedCandle.getClose() - checkedCandle.getOpen() < 0) {
-                    // check if high checkedCandle is above high of candle B
-                    if (checkedCandle.getHigh() > candle.getHigh() && checkedCandle.getOpen() < candle.getOpen()){
-                        checkedCandle.setSRType(SRType.R_CD_CHD_B);
-                        resistances.getResistanceCandlesList().add(checkedCandle);
-                    }
                     // check if high checkedCandle is below high of candle NB
-                    if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()){
-                        candle.setSRType(SRType.R_CD_CHD_NB);
+                    if (checkedCandle.getHigh() < candle.getHigh() && checkedCandle.getHigh() >= candle.getOpen()) {
+                        candle.setSRType(SRType.R_CD_CHD);
                         resistances.getResistanceCandlesList().add(candle);
                     }
                 }
             }
-
         }
     }
 
@@ -140,33 +119,21 @@ public class SupportResistanceFinder {
     private void checkDependencyBetweenSupportCandles(Candle candle, Candle checkedCandle) {
         if (candle != checkedCandle && candle.getDate().compareTo(checkedCandle.getDate()) == -1) {
 
-            // Support Types: S-CU-CHU-B,S-CU-CHU-NB,S-CU-CHD-B,S-CU-CHD-NB, S-CD-CHU-B,S-CD-CHU-NB,S-CD-CHD-B,S-CD-CHD-NB
-
             //check candle if up candle S-CU
             if (candle.getClose() - candle.getOpen() >= 0) {
                 // check checkedCandle if up CHU
                 if (checkedCandle.getClose() - checkedCandle.getOpen() >= 0) {
-                    // check if low checkedCandle is below low of candle B
-                    if (checkedCandle.getLow() < candle.getLow() && checkedCandle.getOpen() > candle.getOpen()){
-                        checkedCandle.setSRType(SRType.S_CU_CHU_B);
-                        supports.getSupportCandlesList().add(checkedCandle);
-                    }
                     // check if low checkedCandle is above low of candle NB
-                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getOpen()){
-                        candle.setSRType(SRType.S_CU_CHU_NB);
+                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getOpen()) {
+                        candle.setSRType(SRType.S_CU_CHU);
                         supports.getSupportCandlesList().add(candle);
                     }
                 }
                 // check checkedCandle if down CHD
                 if (checkedCandle.getClose() - checkedCandle.getOpen() < 0) {
-                    // check if low checkedCandle is below low of candle B
-                    if (checkedCandle.getLow() < candle.getLow() && checkedCandle.getClose() > candle.getOpen()){
-                        checkedCandle.setSRType(SRType.S_CU_CHD_B);
-                        supports.getSupportCandlesList().add(checkedCandle);
-                    }
                     // check if low checkedCandle is above low of candle NB
-                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getOpen()){
-                        candle.setSRType(SRType.S_CU_CHD_NB);
+                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getOpen()) {
+                        candle.setSRType(SRType.S_CU_CHD);
                         supports.getSupportCandlesList().add(candle);
                     }
                 }
@@ -176,32 +143,21 @@ public class SupportResistanceFinder {
             if (candle.getClose() - candle.getOpen() < 0) {
                 // check checkedCandle if up CHU
                 if (checkedCandle.getClose() - checkedCandle.getOpen() >= 0) {
-                    // check if low checkedCandle is below low of candle B
-                    if (checkedCandle.getLow() < candle.getLow() && checkedCandle.getOpen() > candle.getClose()){
-                        checkedCandle.setSRType(SRType.S_CD_CHU_B);
-                        supports.getSupportCandlesList().add(checkedCandle);
-                    }
                     // check if low checkedCandle is above low of candle NB
-                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getClose()){
-                        candle.setSRType(SRType.S_CD_CHU_NB);
+                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getClose()) {
+                        candle.setSRType(SRType.S_CD_CHU);
                         supports.getSupportCandlesList().add(candle);
                     }
                 }
                 // check checkedCandle if down CHD
                 if (checkedCandle.getClose() - checkedCandle.getOpen() < 0) {
-                    // check if low checkedCandle is below low of candle B
-                    if (checkedCandle.getLow() < candle.getLow() && checkedCandle.getClose() > candle.getClose()){
-                        checkedCandle.setSRType(SRType.S_CD_CHD_B);
-                        supports.getSupportCandlesList().add(checkedCandle);
-                    }
                     // check if low checkedCandle is above low of candle NB
-                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getClose()){
-                        candle.setSRType(SRType.S_CD_CHD_NB);
+                    if (checkedCandle.getLow() > candle.getLow() && checkedCandle.getLow() <= candle.getClose()) {
+                        candle.setSRType(SRType.S_CD_CHD);
                         supports.getSupportCandlesList().add(candle);
                     }
                 }
             }
-
         }
     }
 }

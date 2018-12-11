@@ -1,7 +1,7 @@
 package org.mt4expert.javaexpert.mt4;
 
 import org.mt4expert.javaexpert.Commander;
-import org.mt4expert.javaexpert.reporter.SRReporter;
+import org.mt4expert.javaexpert.reporterservice.SRReporter;
 import org.mt4expert.javaexpert.config.ExpertConfigurator;
 
 import java.io.File;

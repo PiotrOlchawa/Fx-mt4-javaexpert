@@ -4,15 +4,14 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 sourceCompatibility = 1.8
 
+apply plugin:'application'
+mainClassName = "pl.somehost.javaexpert.Runner"
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    //testCompile group: 'junit', name: 'junit', version: '4.12'
-    //compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
-    //compile group: 'log4j', name: 'log4j', version: '1.2.17'
-    //testCompile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.21'
     compile group: 'org.simplejavamail', name: 'simple-java-mail', version: '5.0.4'
     compile "org.slf4j:slf4j-api:1.7.21"
     compile "org.slf4j:slf4j-simple:1.7.21"
@@ -26,7 +25,7 @@ jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'org.mt4expert.javaexpert.Runner'
+                'Main-Class': 'pl.somehost.javaexpert.Runner'
         )
     }
 }
